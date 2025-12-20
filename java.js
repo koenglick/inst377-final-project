@@ -1,18 +1,24 @@
 var lookupButton = document.querySelector("#lookupButton");
 var wordInput = document.querySelector("#wordInput");
-var resultDiv = document.querySelector("#result");
+var resultTitle = document.querySelector("#resultTitle");
+var resultText = document.querySelector("#resultText");
 
 lookupButton.addEventListener("click", function () {
   var word = wordInput.value;
 
   if (word === "") {
-    resultDiv.textContent = "Please enter a German word.";
+    resultTitle.textContent = "Result";
+    resultText.textContent = "Please enter a German word.";
     return;
   }
 
-  resultDiv.textContent = "Loading...";
+  resultTitle.textContent = "Result";
+  resultText.textContent = "Loading...";
 
-  var url = "https://de.wiktionary.org/w/api.php?action=query&format=json&prop=extracts&exintro=1&explaintext=1&titles=" + encodeURIComponent(word) + "&origin=*";
+  var url =
+    "https://de.wiktionary.org/w/api.php?action=query&format=json&prop=extracts&exintro=1&explaintext=1&titles=" +
+    encodeURIComponent(word) +
+    "&origin=*";
 
   fetch(url)
     .then(function (response) {
@@ -24,12 +30,16 @@ lookupButton.addEventListener("click", function () {
       var extract = pages[pageId].extract;
 
       if (extract === undefined || extract.trim() === "") {
-        resultDiv.textContent = "No result found for: " + word;
+        resultTitle.textContent = "No Result";
+        resultText.textContent = "No Wiktionary entry found for: " + word;
         return;
       }
 
-      resultDiv.textContent = extract;
+      resultTitle.textContent = word;
+      resultText.textContent = extract;
     })
     .catch(function () {
-      resultDiv.textContent = "Something went wrong. Please try again.";
+      resultTitle.textContent = "Error";
+      resultText.textContent = "Something went wrong. Please try again.";
     });
+});
