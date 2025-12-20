@@ -1,9 +1,8 @@
-console.log("test");
-
 var lookupButton = document.querySelector("#lookupButton");
 var wordInput = document.querySelector("#wordInput");
+var resultDiv = document.querySelector("#result");
 
 lookupButton.addEventListener("click", function () {
   var word = wordInput.value;
-  console.log(word);
+  resultDiv.textContent = word;
 });
