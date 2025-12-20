@@ -32,6 +32,16 @@ lookupButton.addEventListener("click", function () {
 
       resultTitle.textContent = word;
       resultText.textContent = extract;
+      fetch("/api/words", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          word: word
+        })
+      });
+
     })
     .catch(function () {
       resultTitle.textContent = "Error";
