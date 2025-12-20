@@ -10,18 +10,24 @@ L.marker([48.137, 11.575]).addTo(map)
 
 var chartCanvas = document.querySelector("#wordChart");
 
-var chart = new Chart(chartCanvas, {
-  type: "bar",
-  data: {
-    labels: ["Nouns", "Verbs", "Adjectives"],
-    datasets: [
-      {
-        label: "Count",
-        data: [2, 1, 0]
+fetch("/api/words")
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    var chart = new Chart(chartCanvas, {
+      type: "bar",
+      data: {
+        labels: ["Saved Words"],
+        datasets: [
+          {
+            label: "Total",
+            data: [data.length]
+          }
+        ]
       }
-    ]
-  }
-});
+    });
+  });
 
 fetch("/api/words")
   .then(function (response) {
