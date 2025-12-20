@@ -20,10 +20,10 @@ The project is not optimized for mobile browsers (iOS or Android) and is intende
 ---
 
 ## Developer Manual
-The Developer Manual is included below and is also mirrored in the `/docs` directory for maintainability and future development.
+The Developer Manual is included below and is also mirrored in the `/docs` 
 
 **Developer Manual Location:**  
-`/docs/developer-manual.md`
+[Developer Manual](docs/developer-manual.md)
 
 ---
 
