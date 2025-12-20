@@ -1,4 +1,5 @@
 import { supabase } from "../lib/supabase.js";
+// troubleshootingg for .js add for vercel
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
