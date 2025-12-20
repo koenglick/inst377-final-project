@@ -44,6 +44,21 @@ export default function handler(req, res) {
 
   tryParse(lemma)
     .then(function (data) {
+
+      if (req.query.debug === "1") {
+  var wikitext = "";
+  if (data && data.parse && data.parse.wikitext) {
+    wikitext = data.parse.wikitext["*"] || "";
+  }
+
+  res.status(200).json({
+    lemma: lemma,
+    hasParse: !!(data && data.parse),
+    wikitextStart: wikitext.substring(0, 800)
+  });
+  return;
+}
+
       if (data && data.parse && data.parse.wikitext) {
         var extract1 = getFirstDefinition(data.parse.wikitext["*"]);
         if (extract1) {
