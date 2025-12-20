@@ -7,7 +7,7 @@ export default function handler(req, res) {
   }
 
   var url =
-    "https://de.wiktionary.org/w/api.php?action=query&format=json&prop=extracts&exintro=1&explaintext=1&titles=" +
+    "https://de.wiktionary.org/w/api.php?action=query&format=json&prop=extracts&exintro=1&explaintext=1&redirects=1&titles=" +
     encodeURIComponent(lemma) +
     "&origin=*";
 
