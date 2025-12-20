@@ -1,4 +1,4 @@
-# Developer Manual – German Vocabulary Lookup App
+# Developer Manual - German Vocabulary Lookup App
 
 ## Audience
 This document is written for future developers who may take over this project. Readers are expected to understand basic web development concepts such as HTML, CSS, JavaScript, APIs, and databases, but are not expected to have prior knowledge of this specific system.
