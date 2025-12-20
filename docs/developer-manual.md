@@ -42,8 +42,8 @@ Install dependencies by running:
 
 ### Table Schema
 Table: `words`
-- `id` – auto-generated primary key
-- `word` – text value representing a saved German word
+- `id` - auto-generated primary key
+- `word` - text value representing a saved German word
 
 ### Security Policies
 Row Level Security (RLS) must be enabled with policies allowing:
@@ -57,8 +57,8 @@ This setup is appropriate for a course project without authentication.
 ## Environment Variables
 The following environment variables must be set in Vercel:
 
-- `SUPABASE_URL` – Supabase project URL
-- `SUPABASE_ANON_KEY` – Supabase anon public key
+- `SUPABASE_URL` - Supabase project URL
+- `SUPABASE_ANON_KEY` - Supabase anon public key
 
 These variables are required for backend database access.
 
