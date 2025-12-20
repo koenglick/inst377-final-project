@@ -6,6 +6,13 @@ export default function handler(req, res) {
     return;
   }
 
+  function capitalizeFirstLetter(word) {
+    if (!word) {
+      return "";
+    }
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }
+
   function getFirstDefinition(wikitext) {
     if (!wikitext) {
       return "";
@@ -44,20 +51,20 @@ export default function handler(req, res) {
 
   tryParse(lemma)
     .then(function (data) {
-
+      // DEBUG
       if (req.query.debug === "1") {
-  var wikitext = "";
-  if (data && data.parse && data.parse.wikitext) {
-    wikitext = data.parse.wikitext["*"] || "";
-  }
+        var wikitext = "";
+        if (data && data.parse && data.parse.wikitext) {
+          wikitext = data.parse.wikitext["*"] || "";
+        }
 
-  res.status(200).json({
-    lemma: lemma,
-    hasParse: !!(data && data.parse),
-    wikitextStart: wikitext.substring(0, 800)
-  });
-  return;
-}
+        res.status(200).json({
+          lemma: lemma,
+          hasParse: !!(data && data.parse),
+          wikitextStart: wikitext.substring(0, 800)
+        });
+        return;
+      }
 
       if (data && data.parse && data.parse.wikitext) {
         var extract1 = getFirstDefinition(data.parse.wikitext["*"]);
@@ -67,14 +74,24 @@ export default function handler(req, res) {
         }
       }
 
-      return tryParse(lemma.toLowerCase()).then(function (data2) {
-        var extract2 = "";
-
-        if (data2 && data2.parse && data2.parse.wikitext) {
-          extract2 = getFirstDefinition(data2.parse.wikitext["*"]);
+      return tryParse(capitalizeFirstLetter(lemma)).then(function (dataCap) {
+        if (dataCap && dataCap.parse && dataCap.parse.wikitext) {
+          var extractCap = getFirstDefinition(dataCap.parse.wikitext["*"]);
+          if (extractCap) {
+            res.status(200).json({ lemma: lemma, extract: extractCap });
+            return;
+          }
         }
 
-        res.status(200).json({ lemma: lemma, extract: extract2 || "" });
+        return tryParse(lemma.toLowerCase()).then(function (data2) {
+          var extract2 = "";
+
+          if (data2 && data2.parse && data2.parse.wikitext) {
+            extract2 = getFirstDefinition(data2.parse.wikitext["*"]);
+          }
+
+          res.status(200).json({ lemma: lemma, extract: extract2 || "" });
+        });
       });
     })
     .catch(function () {
