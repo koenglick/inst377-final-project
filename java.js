@@ -15,19 +15,14 @@ lookupButton.addEventListener("click", function () {
   resultTitle.textContent = "Result";
   resultText.textContent = "Loading...";
 
-  var url =
-    "https://de.wiktionary.org/w/api.php?action=query&format=json&prop=extracts&exintro=1&explaintext=1&titles=" +
-    encodeURIComponent(word) +
-    "&origin=*";
+  var url = "/api/lookup?lemma=" + encodeURIComponent(word);
 
   fetch(url)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
-      var pages = data.query.pages;
-      var pageId = Object.keys(pages)[0];
-      var extract = pages[pageId].extract;
+      var extract = data.extract;
 
       if (extract === undefined || extract.trim() === "") {
         resultTitle.textContent = "No Result";
