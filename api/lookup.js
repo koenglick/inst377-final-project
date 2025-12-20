@@ -13,30 +13,39 @@ export default function handler(req, res) {
     return word.charAt(0).toUpperCase() + word.slice(1);
   }
 
-  function getFirstDefinition(wikitext) {
-    if (!wikitext) {
-      return "";
-    }
-
-    var lines = wikitext.split("\n");
-
-    for (var i = 0; i < lines.length; i++) {
-      var line = lines[i].trim();
-
-      if (line.indexOf("#") === 0) {
-        line = line.replace(/^#+\s*/, "");
-
-        line = line.replace(/\[\[|\]\]/g, "");
-        line = line.replace(/''/g, "");
-
-        if (line !== "" && line.indexOf("{{") !== 0) {
-          return line;
-        }
-      }
-    }
-
+function getFirstDefinition(wikitext) {
+  if (!wikitext) {
     return "";
   }
+
+  var startIndex = wikitext.indexOf("{{Bedeutungen}}");
+  if (startIndex === -1) {
+    startIndex = wikitext.indexOf("=== {{Bedeutungen}} ===");
+  }
+  if (startIndex === -1) {
+    startIndex = 0; // fallback
+  }
+
+  var textToScan = wikitext.substring(startIndex);
+  var lines = textToScan.split("\n");
+
+  for (var i = 0; i < lines.length; i++) {
+    var line = lines[i].trim();
+
+    if (line.indexOf("#") === 0) {
+      line = line.replace(/^#+\s*/, "");
+      line = line.replace(/\[\[|\]\]/g, "");
+      line = line.replace(/''/g, "");
+
+      if (line !== "" && line.indexOf("{{") !== 0) {
+        return line;
+      }
+    }
+  }
+
+  return "";
+}
+
 
   function tryParse(word) {
     var url =
