@@ -22,3 +22,27 @@ var chart = new Chart(chartCanvas, {
     ]
   }
 });
+
+fetch("/api/words")
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    var savedWordsDiv = document.querySelector("#savedWords");
+    savedWordsDiv.innerHTML = "";
+
+    if (data.length === 0) {
+      savedWordsDiv.textContent = "No words yet.";
+      return;
+    }
+
+    var list = document.createElement("ul");
+
+    data.forEach(function (item) {
+      var li = document.createElement("li");
+      li.textContent = item.word;
+      list.appendChild(li);
+    });
+
+    savedWordsDiv.appendChild(list);
+  });
