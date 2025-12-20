@@ -62,11 +62,9 @@ Dependencies are defined in `package.json`.
 
 ## Local Setup Instructions
 
-1. Clone the repository:
-
-2. Navigate into the project directory:
-
-3. Install dependencies:
+1. Clone the repository
+2. Navigate into the project directory
+3. Install dependencies
 
 4. Create a Supabase project and add a table named `words` with the following schema:
 - `id` (auto-generated primary key)
@@ -141,5 +139,3 @@ This limitation does not affect backend stability, database persistence, or fron
 - Add user accounts and authentication
 - Expand chart functionality to show word categories
 - Improve mobile responsiveness
-
----
